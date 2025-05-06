@@ -54,7 +54,7 @@ public class LoginController {
 
         // Contoh validasi sederhana, sesuaikan dengan query database kamu
         try (Connection conn = DBConnectionUser.getConnection()) {
-            String sql = "SELECT * FROM user username = ? AND password = ?";
+            String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             stmt.setString(2, password);
@@ -104,13 +104,16 @@ public class LoginController {
     public class loginController {
         // method login
         public boolean login(String username, String password) {
-            String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM user";
             try (Connection conn = DBConnectionUser.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, username);
-                stmt.setString(2, password);
-                ResultSet rs = stmt.executeQuery();
-                return rs.next(); // true jika user ditemukan
+                 Statement stmt = conn.createStatement()) {
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    if (username.equals(rs.getString("username")) && password.equals(rs.getString("password"))) {
+                        return rs.next(); // true jika user ditemukan
+                    }
+                }
+                return false;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

@@ -1,6 +1,12 @@
 package org.example.project_rplbo;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import org.example.project_rplbo.DBConnection.DBConnectionUser;
 
 import java.sql.*;
 
@@ -44,7 +50,7 @@ public class ForgotPasswordController {
             return;
         }
 
-        try {
+        try (Connection conn = DBConnectionUser.getConnection()) {
             String sql = "SELECT security_question FROM user WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
@@ -84,7 +90,7 @@ public class ForgotPasswordController {
             return;
         }
 
-        try {
+        try (Connection conn = DBConnectionUser.getConnection()) {
             String sql = "SELECT security_answer FROM user WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
@@ -102,6 +108,7 @@ public class ForgotPasswordController {
                     if (updated > 0) {
                         messageLabel.setStyle("-fx-text-fill: green;");
                         messageLabel.setText("Password berhasil direset.");
+
                     } else {
                         messageLabel.setText("Gagal mereset password.");
                     }
@@ -118,6 +125,19 @@ public class ForgotPasswordController {
         } catch (SQLException e) {
             messageLabel.setText("Terjadi kesalahan saat reset password.");
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void keLogin(ActionEvent event) {
+        try {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login");
+        } catch (Exception e) {
+            e.printStackTrace();
+            messageLabel.setText("Gagal Kembali");
         }
     }
 }
