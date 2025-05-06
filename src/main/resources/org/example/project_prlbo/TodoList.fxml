@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_prlbo.TodoListController" style="-fx-padding: 20;">
+    <TextField fx:id="taskInput" promptText="Masukkan tugas baru" />
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Prioritas:" />
+        <ComboBox fx:id="priorityComboBox" prefWidth="120" />
+    </HBox>
+    <Button text="Tambah Tugas" onAction="#handleAddTask" maxWidth="150" />
+    <ListView fx:id="taskListView" prefHeight="250" prefWidth="350" />
+    <Button text="Hapus Tugas Terpilih" onAction="#handleRemoveTask" maxWidth="150" />
+    <Label text="* Klik dua kali tugas untuk mengubah prioritas" style="-fx-font-size: 10px; -fx-text-fill: gray;" />
+</VBox>
