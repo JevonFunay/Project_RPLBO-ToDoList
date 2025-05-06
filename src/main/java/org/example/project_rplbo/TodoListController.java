@@ -1,4 +1,4 @@
-package org.example.project_prlbo;
+package org.example.project_rplbo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

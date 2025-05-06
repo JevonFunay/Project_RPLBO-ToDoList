@@ -1,8 +1,9 @@
-module org.example.project_prlbo {
+module org.example.project_rplbo {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
-    opens org.example.project_prlbo to javafx.fxml;
-    exports org.example.project_prlbo;
+    opens org.example.project_rplbo to javafx.fxml;
+    exports org.example.project_rplbo;
 }

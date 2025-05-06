@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_prlbo.TodoListController" style="-fx-padding: 20;">
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.TodoListController" style="-fx-padding: 20;">
     <TextField fx:id="taskInput" promptText="Masukkan tugas baru" />
     <HBox spacing="10" alignment="CENTER">
         <Label text="Prioritas:" />
