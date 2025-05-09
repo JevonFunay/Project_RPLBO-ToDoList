@@ -51,6 +51,14 @@ public class TodoListController {
             if (event.getClickCount() == 2) {
                 Task selected = taskListView.getSelectionModel().getSelectedItem();
                 if (selected != null) {
+                    Alert infoDialog = new Alert(Alert.AlertType.INFORMATION);
+                    infoDialog.setTitle("Detail Tugas");
+                    infoDialog.setHeaderText("Judul: " + selected.getJudul());
+                    infoDialog.setContentText(
+                            "Isi: " + selected.getIsi() + "\n\n" +
+                                    "Tenggat: " + selected.getTenggat()
+                    );
+                    infoDialog.showAndWait();
                     ChoiceDialog<String> dialog = new ChoiceDialog<>(selected.getStatus(), "Ongoing", "Pending", "Cancel", "Selesai");
                     dialog.setTitle("Ubah Status");
                     dialog.setHeaderText("Ubah status tugas");
@@ -64,8 +72,7 @@ public class TodoListController {
                             ps.setString(1, newStatus);
                             ps.setString(2, selected.getJudul());
                             ps.executeUpdate();
-                        }
-                        catch (SQLException se) {
+                        } catch (SQLException se) {
                             System.out.println(se.getMessage());
                         }
                         taskListView.refresh();
@@ -108,8 +115,7 @@ public class TodoListController {
                 ps.setString(1, selected.getJudul());
                 ps.executeUpdate();
             }
-        }
-        catch (SQLException se) {
+        } catch (SQLException se) {
             System.out.println(se.getMessage());
         }
 //      tasks.remove(selected);
@@ -124,10 +130,9 @@ public class TodoListController {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                tasks.add(new Task(rs.getString("judul"), rs.getString("status")));
+                tasks.add(new Task(rs.getString("judul"), rs.getString("status"), rs.getString("isi"), rs.getString("tenggat")));
             }
-        }
-        catch (SQLException se) {
+        } catch (SQLException se) {
             System.out.println(se.getMessage());
         }
     }
@@ -146,26 +151,33 @@ public class TodoListController {
                 return Color.BLACK;
         }
     }
-
-    public static class Task {
-        private String judul;
-        private String status;
-
-        public Task(String judul, String status) {
-            this.judul = judul;
-            this.status = status;
-        }
-
-        public String getJudul() {
-            return judul;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-    }
 }
+//    public static class Task {
+//        private String judul;
+//        private String status;
+//        private String isi;
+//        private String tenggat;
+//
+//        public Task(String judul, String status, String isi, String tenggat) {
+//            this.judul = judul;
+//            this.status = status;
+//            this.isi = isi;
+//            this.tenggat = tenggat;
+//        }
+//
+//        public String getJudul() {
+//            return judul;
+//        }
+//
+//        public String getStatus() {
+//            return status;
+//        }
+//
+//        public void setStatus(String status) {
+//            this.status = status;
+//        }
+//
+//        public String getIsi() { return isi ; }
+//        public String getTenggat() { return tenggat ; }
+//    }
+//}
