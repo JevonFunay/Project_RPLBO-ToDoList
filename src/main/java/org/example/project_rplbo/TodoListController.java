@@ -2,6 +2,7 @@ package org.example.project_rplbo;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,8 +15,8 @@ import java.sql.*;
 
 public class TodoListController {
 
-//    @FXML
-//    private TextField taskInput;
+    @FXML
+    private TextField searchBar;
 
     @FXML
     private ListView<Task> taskListView;
@@ -46,6 +47,15 @@ public class TodoListController {
             }
         });
 
+        // Real-Time Search
+        searchBar.setOnKeyReleased(event -> {
+            try {
+                searchFilter(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         // Mengubah status tugas saat dipilih di list dengan double click
         taskListView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
@@ -59,24 +69,23 @@ public class TodoListController {
                                     "Tenggat: " + selected.getTenggat()
                     );
                     infoDialog.showAndWait();
-                    ChoiceDialog<String> dialog = new ChoiceDialog<>(selected.getStatus(), "Ongoing", "Pending", "Cancel", "Selesai");
-                    dialog.setTitle("Ubah Status");
-                    dialog.setHeaderText("Ubah status tugas");
-                    dialog.setContentText("Pilih status baru:");
 
-                    dialog.showAndWait().ifPresent(newStatus -> {
-                        selected.setStatus(newStatus);
-                        String sql = "UPDATE tasktable SET status = ? WHERE judul = ?";
-                        try (Connection conn = DriverManager.getConnection(url)) {
-                            PreparedStatement ps = conn.prepareStatement(sql);
-                            ps.setString(1, newStatus);
-                            ps.setString(2, selected.getJudul());
-                            ps.executeUpdate();
-                        } catch (SQLException se) {
-                            System.out.println(se.getMessage());
-                        }
-                        taskListView.refresh();
-                    });
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("editTask.fxml"));
+                        Scene scene = new Scene(loader.load());
+                        Stage stage = new Stage();
+                        stage.setTitle("Edit Task");
+                        stage.setScene(scene);
+
+                        EditTaskController controller = loader.getController();
+                        controller.setTask(selected);
+
+                        stage.setOnHiding(e -> getAllData());  // refresh setelah form ditutup
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -86,6 +95,47 @@ public class TodoListController {
     @FXML
     private void onRefresh() {
         getAllData();
+    }
+
+    @FXML
+    void searchFilter(ActionEvent event) throws SQLException, ClassNotFoundException {
+        tasks.clear();
+        String searchText = searchBar.getText().trim().toLowerCase();
+
+        // Jika kosong, tampilkan semua data
+        if (searchText.isEmpty()) {
+            getAllData();
+            return;
+        }
+
+        String sql = "SELECT * FROM tasktable WHERE " +
+                "LOWER(judul) LIKE ? OR " +
+                "LOWER(isi) LIKE ? OR " +
+                "LOWER(tenggat) LIKE ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String likePattern = "%" + searchText + "%";
+            ps.setString(1, likePattern);
+            ps.setString(2, likePattern);
+            ps.setString(3, likePattern);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Task tsk = new Task(
+                        rs.getString("judul"),
+                        rs.getString("isi"),
+                        rs.getString("status"),
+                        rs.getString("tenggat")
+                );
+                tasks.add(tsk);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -152,32 +202,3 @@ public class TodoListController {
         }
     }
 }
-//    public static class Task {
-//        private String judul;
-//        private String status;
-//        private String isi;
-//        private String tenggat;
-//
-//        public Task(String judul, String status, String isi, String tenggat) {
-//            this.judul = judul;
-//            this.status = status;
-//            this.isi = isi;
-//            this.tenggat = tenggat;
-//        }
-//
-//        public String getJudul() {
-//            return judul;
-//        }
-//
-//        public String getStatus() {
-//            return status;
-//        }
-//
-//        public void setStatus(String status) {
-//            this.status = status;
-//        }
-//
-//        public String getIsi() { return isi ; }
-//        public String getTenggat() { return tenggat ; }
-//    }
-//}

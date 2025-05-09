@@ -1,6 +1,7 @@
 package org.example.project_rplbo;
 
 public class Task {
+    private int id;
     private String judul;
     private String status;
     private String isi;
@@ -13,18 +14,47 @@ public class Task {
         this.tenggat = tenggat;
     }
 
+    public Task(int id, String judul, String status, String isi, String tenggat) {
+        this.id = id;
+        this.judul = judul;
+        this.status = status;
+        this.isi = isi;
+        this.tenggat = tenggat;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getJudul() {
         return judul;
     }
 
+    public String getIsi() { return isi ; }
+
     public String getStatus() {
         return status;
+    }
+
+    public String getTenggat() { return tenggat;}
+
+    public void setId() {
+        this.id = id;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public void setIsi(String isi) {
+        this.isi = isi;
     }
 
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getIsi() { return isi ; }
-    public String getTenggat() { return tenggat;}
+    public void setTenggat(String tenggat) {
+        this.tenggat = tenggat;
+    }
 }
