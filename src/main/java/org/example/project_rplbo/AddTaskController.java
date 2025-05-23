@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import org.example.project_rplbo.util.SessionManager;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,19 +41,21 @@ public class AddTaskController implements Initializable {
         String isi   = txtIsi.getText().trim();
         String status= statusChoiceBox.getValue();
         String tenggat = txtTenggat.getValue() != null ? txtTenggat.getValue().toString() : "";
+        String user = SessionManager.getInstance().getUsername();
 
         if (judul.isEmpty() || isi.isEmpty() || tenggat.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Semua field harus diisi.").showAndWait();
             return;
         }
 
-        String sql = "INSERT INTO tasktable (judul, isi, status, tenggat) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tasktable (judul, isi, status, tenggat, user) VALUES (?,?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, judul);
             ps.setString(2, isi);
             ps.setString(3, status);
             ps.setString(4, tenggat);
+            ps.setString(5, user);
             int inserted = ps.executeUpdate();
             if (inserted > 0) {
                 new Alert(Alert.AlertType.INFORMATION, "Tugas berhasil ditambahkan.").showAndWait();

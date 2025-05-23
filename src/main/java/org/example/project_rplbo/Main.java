@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.project_rplbo.util.SessionManager;
 
 public class Main extends Application {
 
@@ -13,10 +14,17 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Login");
-        stage.setScene(scene);
+        if (SessionManager.getInstance().isLoggedIn()) {
+            Parent root = FXMLLoader.load(getClass().getResource("TodoList.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("To Do List");
+            stage.setScene(scene);
+        } else {
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Login");
+            stage.setScene(scene);
+        }
         stage.show();
     }
 

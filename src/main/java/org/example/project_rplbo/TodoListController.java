@@ -10,14 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.example.project_rplbo.util.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +30,7 @@ public class TodoListController implements Initializable {
     @FXML private ListView<Task> activeListView;
     @FXML private ListView<Task> historyListView;
     @FXML private javafx.scene.control.Button btnLogout;
+    @FXML private Label username;
 
     private final String url = "jdbc:sqlite:data_user.db";
     private final ObservableList<Task> activeTasks  = FXCollections.observableArrayList();
@@ -40,6 +38,9 @@ public class TodoListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Setup Username
+        username.setText(SessionManager.getInstance().getUsername());
+
         // Setup cell factories for coloring
         setupCellFactory(activeListView,  true);
         setupCellFactory(historyListView, false);
@@ -72,19 +73,19 @@ public class TodoListController implements Initializable {
                     setGraphic(null);
                 } else {
                     setText(t.getJudul() + " (" + t.getStatus() + ")");
-                    if (isActiveList) {
+                    if ("Ongoing".equals(t.getStatus())) {
                         setTextFill(Color.BLUE);
+                    }else if ("Cancel".equalsIgnoreCase(t.getStatus())) {
+                        setTextFill(Color.RED);
+                    } else if ("Selesai".equalsIgnoreCase(t.getStatus())) {
+                        setTextFill(Color.GREEN);
+                    } else if ("Pending".equalsIgnoreCase(t.getStatus())) {
+                        setTextFill(Color.ORANGE);
                     } else {
-                        if ("Cancel".equalsIgnoreCase(t.getStatus())) {
-                            setTextFill(Color.RED);
-                        } else if ("Selesai".equalsIgnoreCase(t.getStatus())) {
-                            setTextFill(Color.GREEN);
-                        } else {
-                            setTextFill(Color.BLACK);
-                        }
+                        setTextFill(Color.BLACK);
+                    }
                     }
                 }
-            }
         });
     }
 
@@ -107,20 +108,22 @@ public class TodoListController implements Initializable {
                 while (rs.next()) {
                     // —–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
                     // **Perbaikan di sini**: pastikan urutan: judul, status, isi, tenggat
-                    Task t = new Task(
-                            rs.getString("judul"),
-                            rs.getString("status"),
-                            rs.getString("isi"),
-                            rs.getString("tenggat")
-                    );
+                    if (SessionManager.getInstance().getUsername().equals(rs.getString("user"))) {
+                        Task t = new Task(
+                                rs.getString("judul"),
+                                rs.getString("status"),
+                                rs.getString("isi"),
+                                rs.getString("tenggat")
+                        );
+                        String st = t.getStatus().toLowerCase();
+                        if (st.equals("ongoing") || st.equals("pending")) {
+                            activeTasks.add(t);
+                        } else {
+                            historyTasks.add(t);
+                        }
+                    }
                     // —–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-                    String st = t.getStatus().toLowerCase();
-                    if (st.equals("ongoing") || st.equals("pending")) {
-                        activeTasks.add(t);
-                    } else {
-                        historyTasks.add(t);
-                    }
                 }
             }
         } catch (SQLException e) {
@@ -203,6 +206,8 @@ public class TodoListController implements Initializable {
     @FXML
     private void onLogout(ActionEvent event) {
         try {
+            SessionManager.getInstance().logout();
+            SessionManager.getInstance().setUsername(null);
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             stage.setScene(new Scene(root));

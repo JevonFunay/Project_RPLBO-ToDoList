@@ -1,4 +1,4 @@
-package org.example.project_rplbo.DBConnection;
+package org.example.project_rplbo.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

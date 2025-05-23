@@ -6,7 +6,9 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import org.example.project_rplbo.DBConnection.DBConnectionUser;
+import org.example.project_rplbo.util.DBConnectionUser;
+import org.example.project_rplbo.util.SessionManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,6 +64,9 @@ public class LoginController {
 
             if (rs.next()) {
                 // Login berhasil, pindah ke halaman utama
+                SessionManager.getInstance().login();
+                SessionManager.getInstance().setUsername(username);
+
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getResource("TodoList.fxml"));
                 Scene scene = new Scene(root);

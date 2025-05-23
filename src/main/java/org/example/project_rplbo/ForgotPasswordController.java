@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.project_rplbo.DBConnection.DBConnectionUser;
+import org.example.project_rplbo.util.DBConnectionUser;
 
 import java.sql.*;
 
