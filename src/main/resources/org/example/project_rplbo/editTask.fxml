@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.EditTaskController">
-    <children>
-        <VBox alignment="TOP_CENTER" layoutX="29.0" layoutY="48.0" prefHeight="304.0" prefWidth="468.0">
-            <children>
-                <Label text="Ubah Tugas" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                    <padding>
-                        <Insets top="10.0" />
-                    </padding>
-                </Label>
-                <TextField fx:id="txtJudul" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="197.0" promptText="Masukkan Judul">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </TextField>
-                <TextArea fx:id="txtIsi" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="297.0" promptText="Masukkan Isi">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </TextArea>
-            <ChoiceBox fx:id="statusChoice" prefWidth="150.0">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </ChoiceBox>
-                <DatePicker fx:id="txtTenggat" prefHeight="26.0" prefWidth="208.0" promptText="Masukkan Tenggat Waktu">
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </DatePicker>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Button fx:id="btnSimpan" mnemonicParsing="false" onAction="#onSimpanClick" text="Simpan" />
-                  <Button fx:id="btnBatal" mnemonicParsing="false" onAction="#onBatalClick" text="Batal" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            </children>
-        </VBox>
-    </children>
-</AnchorPane>
+<VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.EditTaskController">
+
+    <!-- Judul Halaman -->
+    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Edit Tugas" />
+
+    <!-- Grid untuk field input -->
+    <GridPane hgap="15" style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-background-radius: 8;" vgap="15">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" prefWidth="100" />
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+
+        <!-- Judul Tugas -->
+        <Label style="-fx-font-weight: bold;" text="Judul:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="txtJudul" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <!-- Deskripsi -->
+        <Label style="-fx-font-weight: bold;" text="Deskripsi:" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <TextArea fx:id="txtIsi" prefHeight="100" style="-fx-background-color: #fafafa;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <!-- Status -->
+        <Label style="-fx-font-weight: bold;" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ChoiceBox fx:id="statusChoice" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Ongoing" />
+                    <String fx:value="Pending" />
+                    <String fx:value="Selesai" />
+                    <String fx:value="Cancel" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+
+        <!-- Tenggat Waktu -->
+        <Label style="-fx-font-weight: bold;" text="Tenggat:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <DatePicker fx:id="txtTenggat" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+
+    <!-- Tombol aksi -->
+    <HBox alignment="CENTER" spacing="10">
+        <Button onAction="#onUpdate" style="-fx-pref-width: 100px; -fx-font-size: 14px; -fx-background-color: #4285f4; -fx-text-fill: white; -fx-background-radius: 5;" text="Update" />
+        <Button onAction="#onCancel" style="-fx-pref-width: 100px; -fx-font-size: 14px; -fx-background-color: #ccc; -fx-text-fill: #333; -fx-background-radius: 5;" text="Batal" />
+    </HBox>
+
+</VBox>

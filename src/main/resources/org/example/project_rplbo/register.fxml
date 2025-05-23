@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.project_rplbo.RegisterController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="526.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.RegisterController">
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label text="Register" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Register" />
 
-    <TextField fx:id="usernameField" promptText="Username" maxWidth="250"/>
-    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250"/>
-    <TextField fx:id="securityQuestionField" promptText="Pertanyaan Keamanan" maxWidth="250"/>
-    <TextField fx:id="securityAnswerField" promptText="Jawaban Keamanan" maxWidth="250"/>
+    <TextField fx:id="usernameField" maxWidth="250" promptText="Username" />
+    <PasswordField fx:id="passwordField" maxWidth="250" promptText="Password" />
+    <TextField fx:id="securityQuestionField" maxWidth="250" promptText="Pertanyaan Keamanan" />
+    <TextField fx:id="securityAnswerField" maxWidth="250" promptText="Jawaban Keamanan" />
 
-    <Button text="Register" onAction="#handleRegister" maxWidth="250"/>
+    <Button maxWidth="250" onAction="#handleRegister" text="Register" />
 
-    <Label fx:id="messageLabel" style="-fx-text-fill: red;"/>
-    <Hyperlink text="Sudah punya akun? Login" onAction="#handleShowLogin"/>
+    <Label fx:id="messageLabel" style="-fx-text-fill: red;" />
+    <Hyperlink onAction="#handleShowLogin" text="Sudah punya akun? Login" />
 
 </VBox>

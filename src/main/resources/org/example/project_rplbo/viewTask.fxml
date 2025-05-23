@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.HPos?>
+<?import javafx.geometry.VPos?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.project_rplbo.ViewTaskController"
+      spacing="20" alignment="TOP_CENTER"
+      style="-fx-padding: 20; -fx-background-color: #f4f4f4;">
+
+    <!-- Judul Halaman -->
+    <Label text="Detail Tugas"
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+
+    <!-- Grid untuk detail informasi -->
+    <GridPane hgap="15" vgap="15" style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-background-radius: 8;">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" prefWidth="100"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <!-- Baris Judul -->
+        <Label text="Judul:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+        <Label fx:id="lblJudul" wrapText="true"
+               GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
+
+        <!-- Baris Deskripsi -->
+        <Label text="Deskripsi:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;" GridPane.valignment="TOP"/>
+        <TextArea fx:id="txtIsi" editable="false" wrapText="true" prefHeight="120"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #fafafa;"/>
+
+        <!-- Baris Status -->
+        <Label text="Status:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+        <Label fx:id="lblStatus" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
+
+        <!-- Baris Tenggat Waktu -->
+        <Label text="Tenggat:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+        <Label fx:id="lblTenggat" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
+    </GridPane>
+
+    <!-- Tombol Tutup -->
+    <Button text="Tutup" onAction="#onClose"
+            style="-fx-pref-width: 100px; -fx-font-size: 14px; -fx-background-color: #4285f4; -fx-text-fill: white; -fx-background-radius: 5;"/>
+
+</VBox>

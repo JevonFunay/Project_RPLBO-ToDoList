@@ -110,13 +110,16 @@ public class ForgotPasswordController {
                         messageLabel.setText("Password berhasil direset.");
 
                     } else {
+                        messageLabel.setStyle("-fx-text-fill: red;");
                         messageLabel.setText("Gagal mereset password.");
                     }
                     updateStmt.close();
                 } else {
+                    messageLabel.setStyle("-fx-text-fill: red;");
                     messageLabel.setText("Jawaban pertanyaan keamanan salah.");
                 }
             } else {
+                messageLabel.setStyle("-fx-text-fill: red;");
                 messageLabel.setText("Username tidak ditemukan.");
             }
 

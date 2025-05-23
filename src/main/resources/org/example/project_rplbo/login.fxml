@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.project_rplbo.LoginController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="526.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.LoginController">
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label text="Login" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Login" />
 
-    <TextField fx:id="usernameField" promptText="Username" maxWidth="200"/>
-    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="200"/>
+    <TextField fx:id="usernameField" maxWidth="200" promptText="Username" />
+    <PasswordField fx:id="passwordField" maxWidth="200" promptText="Password" />
 
-    <Button text="Login" onAction="#handleLogin" maxWidth="200"/>
+    <Button maxWidth="200" onAction="#handleLogin" text="Login" />
 
-    <Hyperlink text="Lupa Password?" onAction="#handleForgotPassword"/>
+    <Hyperlink onAction="#handleForgotPassword" text="Lupa Password?" />
 
-    <Label fx:id="messageLabel" style="-fx-text-fill: red;"/>
-    <Hyperlink text="Daftar Akun Baru" onAction="#handleShowRegister"/>
+    <Label fx:id="messageLabel" style="-fx-text-fill: red;" />
+    <Hyperlink onAction="#handleShowRegister" text="Daftar Akun Baru" />
 
 </VBox>
