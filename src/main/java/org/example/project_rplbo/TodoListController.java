@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.example.project_rplbo.util.NotificationUtil;
 import org.example.project_rplbo.util.SessionManager;
 
 import java.io.IOException;
@@ -47,6 +48,9 @@ public class TodoListController implements Initializable {
 
         // Load data initially
         loadAllTasks();
+
+        // Notification h-1
+        NotificationUtil.checkForDueTasks();
 
         // Reload on search text change
         searchBar.textProperty().addListener((obs, oldV, newV) -> loadAllTasks());
