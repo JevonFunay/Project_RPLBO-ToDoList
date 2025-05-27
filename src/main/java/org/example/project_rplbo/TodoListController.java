@@ -113,8 +113,10 @@ public class TodoListController implements Initializable {
                                 rs.getString("judul"),
                                 rs.getString("status"),
                                 rs.getString("isi"),
-                                rs.getString("tenggat")
+                                rs.getString("tenggat"),
+                                rs.getString("kategori")
                         );
+
                         String st = t.getStatus().toLowerCase();
                         if (st.equals("ongoing") || st.equals("pending")) {
                             activeTasks.add(t);

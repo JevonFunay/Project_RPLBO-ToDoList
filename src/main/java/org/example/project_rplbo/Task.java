@@ -6,20 +6,31 @@ public class Task {
     private String status;
     private String isi;
     private String tenggat;
+    private String kategori;
 
-    public Task(String judul, String status, String isi, String tenggat) {
+    public Task(String judul, String status, String isi, String tenggat, String kategori) {
         this.judul = judul;
         this.status = status;
         this.isi = isi;
         this.tenggat = tenggat;
+        this.kategori = kategori;
     }
 
-    public Task(int id, String judul, String status, String isi, String tenggat) {
+    public Task(int id, String judul, String status, String isi, String tenggat, String kategori) {
         this.id = id;
         this.judul = judul;
         this.status = status;
         this.isi = isi;
         this.tenggat = tenggat;
+        this.kategori = kategori;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
     }
 
     public int getId() {

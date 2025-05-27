@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.AddTaskController">
+<VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.AddTaskController">
 
    <!-- Judul Halaman -->
    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Tambah Tugas" />
 
    <!-- Grid untuk field input -->
-   <GridPane hgap="15" style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-background-radius: 8;" vgap="15">
+   <GridPane hgap="15" prefHeight="287.0" prefWidth="627.0" style="-fx-background-color: white; -fx-padding: 15; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-background-radius: 8;" vgap="15">
       <columnConstraints>
          <ColumnConstraints halignment="RIGHT" prefWidth="100" />
          <ColumnConstraints hgrow="ALWAYS" />
@@ -26,7 +35,7 @@
       <TextArea fx:id="txtIsi" prefHeight="100" style="-fx-background-color: #fafafa;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
       <!-- Status -->
-      <Label style="-fx-font-weight: bold;" text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      <Label style="-fx-font-weight: bold;" text="Status:" GridPane.rowIndex="2" />
       <ChoiceBox fx:id="statusChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <items>
             <FXCollections fx:factory="observableArrayList">
@@ -41,7 +50,22 @@
       <!-- Tenggat Waktu -->
       <Label style="-fx-font-weight: bold;" text="Tenggat:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
       <DatePicker fx:id="txtTenggat" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label prefHeight="25.0" prefWidth="54.0" style="-fx-font-weight: bold;" text="Kategori:" GridPane.rowIndex="4" />
+
+<!--      Kategori-->
+      <ChoiceBox fx:id="kategoriChoice" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Self-Development" />
+               <String fx:value="Hiburan" />
+               <String fx:value="Kuliah" />
+               <String fx:value="Lainnya" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
       <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />

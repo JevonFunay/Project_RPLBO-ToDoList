@@ -19,6 +19,7 @@ public class AddTaskController implements Initializable {
     @FXML private TextArea txtIsi;
     @FXML private ChoiceBox<String> statusChoiceBox;
     @FXML private DatePicker txtTenggat;
+    @FXML private ChoiceBox<String> kategoriChoice;
 
     private final String url = "jdbc:sqlite:data_user.db";
 
@@ -27,11 +28,16 @@ public class AddTaskController implements Initializable {
         // Inisialisasi opsi status
         if (statusChoiceBox.getItems().isEmpty()) {
             statusChoiceBox.getItems().addAll("Ongoing", "Pending", "Selesai", "Cancel");
+            // Default status
         }
-        // Default status
         statusChoiceBox.setValue("Ongoing");
-    }
 
+        // Inisialisasi kategori
+        if (kategoriChoice.getItems().isEmpty()) {
+            kategoriChoice.getItems().addAll("Hiburan", "Self-Development", "Kuliah", "Lainnya");
+        }
+        kategoriChoice.setValue("Self-Development");
+    }
     /**
      * Handle tombol Tambah: simpan task baru ke database lalu tutup window
      */
@@ -41,21 +47,24 @@ public class AddTaskController implements Initializable {
         String isi   = txtIsi.getText().trim();
         String status= statusChoiceBox.getValue();
         String tenggat = txtTenggat.getValue() != null ? txtTenggat.getValue().toString() : "";
+        String kategori = kategoriChoice.getValue();
         String user = SessionManager.getInstance().getUsername();
 
-        if (judul.isEmpty() || isi.isEmpty() || tenggat.isEmpty()) {
+        if (judul.isEmpty() || isi.isEmpty() || tenggat.isEmpty() || kategori == null) {
             new Alert(Alert.AlertType.WARNING, "Semua field harus diisi.").showAndWait();
             return;
         }
 
-        String sql = "INSERT INTO tasktable (judul, isi, status, tenggat, user) VALUES (?,?,?,?,?)";
+        // Tambahkan kolom kategori ke query
+        String sql = "INSERT INTO tasktable (judul, isi, status, tenggat, kategori, user) VALUES (?,?,?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(url);
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, judul);
             ps.setString(2, isi);
             ps.setString(3, status);
             ps.setString(4, tenggat);
-            ps.setString(5, user);
+            ps.setString(5, kategori);
+            ps.setString(6, user);
             int inserted = ps.executeUpdate();
             if (inserted > 0) {
                 new Alert(Alert.AlertType.INFORMATION, "Tugas berhasil ditambahkan.").showAndWait();
@@ -64,12 +73,10 @@ public class AddTaskController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Gagal menambahkan tugas.").showAndWait();
         }
-
-        // Tutup window setelah menambah
+// Tutup window setelah menambah
         Stage stage = (Stage) txtJudul.getScene().getWindow();
         stage.close();
     }
-
     /**
      * Handle tombol Batal: tutup window tanpa aksi
      */

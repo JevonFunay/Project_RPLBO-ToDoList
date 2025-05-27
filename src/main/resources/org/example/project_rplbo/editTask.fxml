@@ -41,7 +41,21 @@
         <!-- Tenggat Waktu -->
         <Label style="-fx-font-weight: bold;" text="Tenggat:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <DatePicker fx:id="txtTenggat" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <!--      Kategori-->
+        <ChoiceBox fx:id="kategoriChoice" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Self-Development" />
+                    <String fx:value="Hiburan" />
+                    <String fx:value="Kuliah" />
+                    <String fx:value="Lainnya" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+      <Label layoutX="75.0" layoutY="227.0" style="-fx-font-weight: bold;" text="Kategori:" GridPane.rowIndex="4" />
       <rowConstraints>
+         <RowConstraints />
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />
