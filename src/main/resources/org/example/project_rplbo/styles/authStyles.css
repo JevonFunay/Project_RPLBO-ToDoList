@@ -1,0 +1,59 @@
+.root-container {
+    -fx-background-color: #cbd8e4;
+}
+
+.login-card,
+.register-card,
+.forgot-pw-card {
+    -fx-background-color: #fdfdfd;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.1, 0, 4);
+}
+
+.login-card .login-btn,
+.register-card .register-btn,
+.forgot-pw-card .get-question-btn {
+    -fx-background-color: #4285f4;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.login-card .login-btn:hover,
+.login-card .login-btn:focused,
+.register-card .register-btn:hover,
+.register-card .register-btn:focused,
+.forgot-pw-card .get-question-btn:hover,
+.forgot-pw-card .get-question-btn:focused {
+    -fx-background-color: #3367d6;
+    -fx-focus-color: transparent;
+}
+
+.forgot-pw-card .reset-pw-btn {
+    -fx-background-color: #4caf50;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.forgot-pw-card .reset-pw-btn:hover,
+.forgot-pw-card .reset-pw-btn:focused {
+    -fx-background-color: #388e3c;
+    -fx-focus-color: transparent;
+}
+
+.back-btn {
+    -fx-background-color: #fff;
+    -fx-text-fill: #434544;
+    /*-fx-border-color: #434544;*/
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.back-btn:focused,
+.back-btn:hover{
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #000000;
+}
+
+.back-img {
+    -fx-fill: #fff;
+}

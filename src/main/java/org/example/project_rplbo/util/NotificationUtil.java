@@ -36,6 +36,7 @@ public class NotificationUtil {
             trayIcon.setToolTip("ToDo List");
             tray.add(trayIcon);
             trayIcon.displayMessage(title, message, TrayIcon.MessageType.INFO);
+            tray.remove(trayIcon);
         } catch (Exception e) {
             e.printStackTrace();
         }

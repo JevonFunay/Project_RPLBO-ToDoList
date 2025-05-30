@@ -1,24 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="526.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.RegisterController">
-    <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
-    </padding>
-
-    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Register" />
-
-    <TextField fx:id="usernameField" maxWidth="250" promptText="Username" />
-    <PasswordField fx:id="passwordField" maxWidth="250" promptText="Password" />
-    <TextField fx:id="securityQuestionField" maxWidth="250" promptText="Pertanyaan Keamanan" />
-    <TextField fx:id="securityAnswerField" maxWidth="250" promptText="Jawaban Keamanan" />
-
-    <Button maxWidth="250" onAction="#handleRegister" text="Register" />
-
-    <Label fx:id="messageLabel" style="-fx-text-fill: red;" />
-    <Hyperlink onAction="#handleShowLogin" text="Sudah punya akun? Login" />
-
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="564.0" prefWidth="689.0" styleClass="root-container" stylesheets="@styles/authStyles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project_rplbo.RegisterController">
+   <children>
+      <VBox alignment="CENTER" layoutX="178.0" layoutY="38.0" prefHeight="400.0" prefWidth="333.0" spacing="15.0" style="-fx-background-color: #fdfdfd;" styleClass="register-card">
+          <padding>
+              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </padding>
+      
+          <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Register">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+         <Label maxWidth="1.7976931348623157E308" text="Username">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+      
+          <TextField fx:id="usernameField" maxWidth="1.7976931348623157E308" promptText="Username">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="-10.0" />
+            </VBox.margin>
+         </TextField>
+         <Label maxWidth="1.7976931348623157E308" text="Password">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+          <PasswordField fx:id="passwordField" maxWidth="1.7976931348623157E308" promptText="Password">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="-10.0" />
+            </VBox.margin>
+         </PasswordField>
+         <Label maxWidth="1.7976931348623157E308" text="Pertanyaan Kemanan">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+          <TextField fx:id="securityQuestionField" maxWidth="1.7976931348623157E308" promptText="Pertanyaan Keamanan">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="-10.0" />
+            </VBox.margin>
+         </TextField>
+         <Label maxWidth="1.7976931348623157E308" text="Jawaban Keamanan">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+          <TextField fx:id="securityAnswerField" maxWidth="1.7976931348623157E308" promptText="Jawaban Keamanan">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="-10.0" />
+            </VBox.margin>
+         </TextField>
+      
+          <Button maxWidth="1.7976931348623157E308" onAction="#handleRegister" styleClass="register-btn" text="Register">
+            <font>
+               <Font size="16.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin>
+         </Button>
+      
+          <Label fx:id="messageLabel" style="-fx-text-fill: red;" />
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Label text="Sudah punya akun?">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+                <Hyperlink onAction="#handleShowLogin" text="Login">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Hyperlink>
+            </children>
+            <VBox.margin>
+               <Insets top="-30.0" />
+            </VBox.margin>
+         </HBox>
+      
+      </VBox>
+   </children>
+</AnchorPane>
