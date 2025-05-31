@@ -27,9 +27,13 @@ public class LoginController {
     @FXML
     private Label messageLabel;
 
+    @FXML
+    private Label errText;
+
     private Connection connection;
 
     public void initialize() {
+        errText.setVisible(false);
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:data_user.db");
             // Pastikan tabel user sudah ada
@@ -76,6 +80,9 @@ public class LoginController {
             } else {
                 // Login gagal
                 // Tampilkan pesan error di label atau alert
+                errText.setVisible(true);
+                errText.setStyle("-fx-text-fill: red");
+                errText.setText("Username or password incorrect");
             }
         } catch (Exception e) {
             e.printStackTrace();
