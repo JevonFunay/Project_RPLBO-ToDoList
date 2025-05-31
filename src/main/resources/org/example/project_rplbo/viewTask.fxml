@@ -26,23 +26,22 @@
             <ColumnConstraints hgrow="ALWAYS"/>
         </columnConstraints>
 
-        <!-- Baris Judul -->
         <Label text="Judul:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
         <Label fx:id="lblJudul" wrapText="true"
                GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
 
-        <!-- Baris Deskripsi -->
         <Label text="Deskripsi:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;" GridPane.valignment="TOP"/>
         <TextArea fx:id="txtIsi" editable="false" wrapText="true" prefHeight="120"
                   GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #fafafa;"/>
 
-        <!-- Baris Status -->
         <Label text="Status:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
         <Label fx:id="lblStatus" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
 
-        <!-- Baris Tenggat Waktu -->
         <Label text="Tenggat:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
         <Label fx:id="lblTenggat" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
+
+        <Label text="Kategori:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+        <Label fx:id="lblKategori" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-text-fill: #555;"/>
     </GridPane>
 
     <!-- Tombol Tutup -->

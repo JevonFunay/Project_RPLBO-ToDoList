@@ -1,0 +1,160 @@
+/* ======== Root dan BorderPane ======== */
+.root-node {
+    -fx-background-color: #3E3E3E;
+}
+
+.borderpane-container {
+    -fx-background-color: #4A4A4A;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+}
+
+/* ======== Sidebar ======== */
+.sidebar {
+    -fx-background-color: #4A4A4A;
+    -fx-border-color: #5A5A5A;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.sidebar .label {
+    -fx-text-fill: #E0E0E0;
+}
+
+.sidebar .logout-btn,
+.sidebar .theme-toggle-btn {
+    -fx-background-color: #555555;
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #656565;
+    -fx-border-width: 1px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+.sidebar .logout-btn {
+    -fx-border-width: 1px 1px 1px 1px;
+}
+
+.sidebar .logout-btn:hover,
+.sidebar .theme-toggle-btn:hover {
+    -fx-background-color: #606060;
+}
+
+/* ======== TabPane ======== */
+.tab-pane .tab-header-area {
+    -fx-padding: 0;
+    -fx-background-color: #454545;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+/* Tab tidak terpilih */
+.tasks-tab,
+.history-tab {
+    -fx-background-color: #505050;
+    /* lighter agar lebih kontras di atas #505050 */
+    -fx-text-fill: #D0D0D0;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-pref-width: 115px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent;
+}
+
+.tasks-tab:hover,
+.history-tab:hover {
+    -fx-background-color: #5E5E5E;
+    -fx-text-fill: #FFFFFF;  /* jadikan putih saat hover agar lebih jelas */
+}
+
+/* Tab terpilih */
+.tab-pane .tab:selected {
+    -fx-background-color: #4A4A4A;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-border-color: #5A5A5A #5A5A5A transparent #5A5A5A;
+    -fx-border-width: 1px 1px 0px 1px;
+    -fx-padding: 5px 15px;
+}
+
+.tab-pane .tab:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* ======== Kontainer Tab (Kotak Tugas & Riwayat) ======== */
+.container-tab {
+    -fx-background-color: #ebebeb;      /* abu-abu terang */
+    -fx-background-radius: 0 0 8px 8px;
+    -fx-border-color: #c0c0c0;          /* abu-abu sedang */
+    -fx-border-width: 0 1px 1px 1px;
+    -fx-padding: 20px;
+}
+
+/* Label heading dalam Tab (sekarang teks diganti gelap) */
+.tasks-label,
+.history-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333333;   /* teks menjadi gelap agar kontras dengan #ebebeb */
+}
+
+/* ======== Kontrol Umum (TextField, Button) ======== */
+.text-field {
+    -fx-background-color: #606060;
+    -fx-text-fill: #E0E0E0;
+    -fx-prompt-text-fill: #A0A0A0;
+    -fx-border-color: #707070;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-highlight-fill: #0066CC;
+    -fx-highlight-text-fill: white;
+}
+
+/* Tombol default */
+.button {
+    -fx-background-color: #606060;
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #707070;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+.button:hover {
+    -fx-background-color: #707070;
+}
+.button:focused {
+    -fx-border-color: #0078D7;
+    -fx-border-width: 1.5px;
+}
+
+/* ======== ListView & ListCell ======== */
+.list-view {
+    -fx-background-color: transparent;      /* biar container-tab terlihat */
+    -fx-border-color: #c0c0c0;               /* sama dengan color-border-light */
+    -fx-border-width: 1px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+/* 1) Gaya untuk setiap ListCell (non-selected) */
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-base-color;     /* gunakan warna yang di-set lewat Controller */
+    -fx-padding: 8px 12px;
+}
+
+/* 2) Gaya saat sel terpilih (selected) */
+.list-view .list-cell:selected {
+    -fx-background-color: #a0c4ff;           /* biru muda */
+    -fx-text-fill: #000000;                  /* hitam untuk kontras */
+}
+
+/* 3) Gaya hover pada ListCell */
+.list-view .list-cell:hover {
+    -fx-background-color: #d0d0d0;           /* abu-abu sedikit lebih gelap */
+    /* jangan override -fx-text-fill di sini */
+}
+
+/* ======== Ikon (ImageView) ======== */
+.image-view {
+    /* jika perlu styling khusus untuk ikon, tambahkan di sini */
+}

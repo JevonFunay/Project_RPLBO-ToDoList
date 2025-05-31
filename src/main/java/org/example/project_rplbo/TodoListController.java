@@ -26,6 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 public class TodoListController implements Initializable {
     @FXML private TextField searchBar;
@@ -33,13 +34,40 @@ public class TodoListController implements Initializable {
     @FXML private ListView<Task> historyListView;
     @FXML private javafx.scene.control.Button btnLogout;
     @FXML private Label username;
-
+    @FXML private Button btnToggleTheme;
+    private boolean isDarkMode = false;
+    private String lightModeCss;
+    private String darkModeCss;
+    private String fxmlDefaultLightModeCssPath; // Untuk referensi stylesheet default FXML
+    private static final String THEME_PREF_KEY = "appThemeTodoList";
     private final String url = "jdbc:sqlite:data_user.db";
     private final ObservableList<Task> activeTasks  = FXCollections.observableArrayList();
     private final ObservableList<Task> historyTasks = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            // PATH ABSOLUT (awali slash) mengarah ke resources/org/example/project_rplbo/styles/…
+            String lightCssPath = "/org/example/project_rplbo/styles/dashboardStyles.css";
+            String darkCssPath  = "/org/example/project_rplbo/styles/darkDashboardStyles.css";
+
+            URL lightCssUrl = getClass().getResource(lightCssPath);
+            URL darkCssUrl  = getClass().getResource(darkCssPath);
+
+            if (lightCssUrl == null || darkCssUrl == null) {
+                throw new NullPointerException("File CSS tema tidak ditemukan.");
+            }
+            lightModeCss = lightCssUrl.toExternalForm();
+            darkModeCss  = darkCssUrl.toExternalForm();
+        } catch (NullPointerException e) {
+            // Jika gagal, nonaktifkan tombol toggle
+            lightModeCss = null;
+            darkModeCss  = null;
+            if (btnToggleTheme != null) {
+                btnToggleTheme.setDisable(true);
+                btnToggleTheme.setText("Tema Error");
+            }
+        }
         // Setup Username
         username.setText(SessionManager.getInstance().getUsername());
 
@@ -58,16 +86,63 @@ public class TodoListController implements Initializable {
 
         // Reload when window gains focus
         Platform.runLater(() -> {
-            Stage stage = (Stage) activeListView.getScene().getWindow();
-            stage.focusedProperty().addListener((o, was, isNow) -> {
-                if (isNow) loadAllTasks();
-            });
+            // Pastikan scene sudah ada sebelum mencoba memodifikasinya
+            if (activeListView != null && activeListView.getScene() != null) {
+                loadThemePreference(activeListView.getScene());
+                Stage stage = (Stage) activeListView.getScene().getWindow();
+                if (stage != null) {
+                    stage.focusedProperty().addListener((o, was, isNow) -> {
+                        if (isNow) loadAllTasks();
+                    });
+                }
+            } else {
+                System.err.println("Peringatan: Scene belum tersedia saat akhir initialize(). Tema awal mungkin tidak teraplikasi dengan benar.");
+                // Jika btnToggleTheme ada, bisa coba ambil scene dari sana, tapi mungkin juga null.
+            }
         });
     }
 
     /**
      * Configure cell factory for ListView: active lists (blue) vs history (red/green)
      */
+    private void loadThemePreference(Scene scene) {
+        if (lightModeCss == null || darkModeCss == null) return;
+        Preferences prefs = Preferences.userNodeForPackage(TodoListController.class);
+        String theme = prefs.get(THEME_PREF_KEY, "light");
+        isDarkMode = "dark".equals(theme);
+
+            // Hapus semua CSS lama
+        scene.getStylesheets().clear();
+
+        if (isDarkMode) {
+            scene.getStylesheets().add(darkModeCss);
+            btnToggleTheme.setText("Light Mode");
+        } else {
+            scene.getStylesheets().add(lightModeCss);
+               btnToggleTheme.setText("Dark Mode");
+        }
+    }
+    @FXML
+    void handleToggleTheme(ActionEvent event) {
+        if (lightModeCss == null || darkModeCss == null) return;
+
+        Scene scene = ((Node) event.getSource()).getScene();
+        if (scene == null) return;
+
+        // Hapus dulu
+        scene.getStylesheets().clear();
+
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+            scene.getStylesheets().add(darkModeCss);
+            btnToggleTheme.setText("Light Mode");
+            Preferences.userNodeForPackage(TodoListController.class).put(THEME_PREF_KEY, "dark");
+        } else {
+            scene.getStylesheets().add(lightModeCss);
+            btnToggleTheme.setText("Dark Mode");
+            Preferences.userNodeForPackage(TodoListController.class).put(THEME_PREF_KEY, "light");
+        }
+    }
     private void setupCellFactory(ListView<Task> lv, boolean isActiveList) {
         lv.setCellFactory(list -> new ListCell<>() {
             @Override
@@ -75,22 +150,20 @@ public class TodoListController implements Initializable {
                 super.updateItem(t, empty);
                 if (empty || t == null) {
                     setText(null);
-//                    setTooltip(null);
                     setGraphic(null);
                 } else {
-//                    Tooltip tooltip = new Tooltip("*Klik dua kali untuk edit tugas");
-//                    setTooltip(tooltip);
-//                    setStyle("-fx-font-size: 12px;");
-                    setPadding(new Insets(10)); // padding antar cell
+                    setPadding(new Insets(10));
                     setText(t.getJudul() + " (" + t.getStatus() + ")");
-                    if ("Ongoing".equals(t.getStatus())) {
+                    if ("Ongoing".equalsIgnoreCase(t.getStatus())) { // Menggunakan equalsIgnoreCase untuk konsistensi
                         setTextFill(Color.BLUE);
-                    }else if ("Cancel".equalsIgnoreCase(t.getStatus())) {
+                    } else if ("Cancel".equalsIgnoreCase(t.getStatus())) {
                         setTextFill(Color.RED);
                     } else if ("Selesai".equalsIgnoreCase(t.getStatus())) {
                         setTextFill(Color.GREEN);
                     } else if ("Pending".equalsIgnoreCase(t.getStatus())) {
                         setTextFill(Color.ORANGE);
+                    } else if ("Dihapus".equalsIgnoreCase(t.getStatus())) { // <-- BARIS BARU
+                        setTextFill(Color.GRAY);                        // <-- WARNA BARU ABU-ABU
                     } else {
                         setTextFill(Color.BLACK);
                     }
@@ -175,20 +248,40 @@ public class TodoListController implements Initializable {
     void handleRemoveTask(ActionEvent event) {
         Task selected = activeListView.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            new Alert(Alert.AlertType.WARNING, "Pilih tugas yang akan dihapus").showAndWait();
+            new Alert(Alert.AlertType.WARNING, "Pilih tugas yang akan dipindahkan ke Riwayat.").showAndWait();
             return;
         }
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Hapus tugas ini?");
+
+        // Pesan konfirmasi yang lebih deskriptif
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Apakah Anda yakin ingin memindahkan tugas '" + selected.getJudul() + "' ke Riwayat dengan status 'Dihapus'?");
+        confirm.setTitle("Konfirmasi Pemindahan Tugas");
+        confirm.setHeaderText("Pindahkan Tugas ke Riwayat"); // Header opsional
+
         confirm.showAndWait().ifPresent(btn -> {
             if (btn == ButtonType.OK) {
+                // Menggunakan ID unik task akan lebih aman jika ada.
+                // Untuk saat ini, kita asumsikan judul, tenggat, dan user cukup unik.
+                String sql = "UPDATE tasktable SET status = ? WHERE judul = ? AND tenggat = ? AND user = ?";
                 try (Connection conn = DriverManager.getConnection(url);
-                     PreparedStatement ps = conn.prepareStatement("DELETE FROM tasktable WHERE judul = ? AND tenggat = ?")) {
-                    ps.setString(1, selected.getJudul());
-                    ps.setString(2, selected.getTenggat());
-                    ps.executeUpdate();
-                    loadAllTasks();
+                     PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                    ps.setString(1, "Dihapus"); // Status baru
+                    ps.setString(2, selected.getJudul());
+                    ps.setString(3, selected.getTenggat());
+                    ps.setString(4, SessionManager.getInstance().getUsername()); // Penting untuk memastikan task milik user yang benar
+
+                    int affectedRows = ps.executeUpdate();
+                    if (affectedRows > 0) {
+                        loadAllTasks(); // Muat ulang data untuk memperbarui kedua ListView
+                        new Alert(Alert.AlertType.INFORMATION, "Tugas telah dipindahkan ke Riwayat.").showAndWait();
+                    } else {
+                        // Ini bisa terjadi jika task tidak ditemukan (misalnya sudah dihapus/diedit oleh proses lain)
+                        new Alert(Alert.AlertType.WARNING, "Tugas tidak ditemukan atau gagal diperbarui.").showAndWait();
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    new Alert(Alert.AlertType.ERROR, "Terjadi kesalahan database: " + e.getMessage()).showAndWait();
                 }
             }
         });
