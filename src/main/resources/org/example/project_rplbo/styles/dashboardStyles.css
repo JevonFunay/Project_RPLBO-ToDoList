@@ -1,0 +1,79 @@
+.root-node {
+    -fx-background-color:  #cbd8e4;
+}
+
+.borderpane-container {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 1.0, 0.9, 0, 0);
+}
+
+.sidebar {
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar .logout-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: lightgray;
+    -fx-border-width: 1 0 0 0;
+}
+
+.sidebar .logout-btn:hover,
+.sidebar .logout-btn:focused {
+    -fx-background-color: lightgray;
+    -fx-cursor: hand;
+}
+
+/* Hapus background tabpane */
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+/* Hapus gap/tab padding bawaan */
+.tab-pane .tab-header-area {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+/* Tab aktif */
+.tab:selected {
+    -fx-background-color: white;
+    -fx-text-fill: #333333;
+}
+
+.tab:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.tasks-tab,
+.history-tab {
+    -fx-background-color: #ccc;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-padding: 3;
+    -fx-pref-width: 115;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.tasks-tab:hover,
+.history-tab:hover,
+.tasks-tab:focused,
+.history-tab:focused {
+    -fx-background-color: #ddd;
+}
+
+/* Kontainer tab (konten tengah) */
+.container-tab {
+    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+}
+
+/* Label heading */
+.tasks-label,
+.history-label {
+    -fx-font-size: 24px;
+}

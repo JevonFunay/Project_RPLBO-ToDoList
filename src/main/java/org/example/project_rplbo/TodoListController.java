@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -74,8 +75,13 @@ public class TodoListController implements Initializable {
                 super.updateItem(t, empty);
                 if (empty || t == null) {
                     setText(null);
+//                    setTooltip(null);
                     setGraphic(null);
                 } else {
+//                    Tooltip tooltip = new Tooltip("*Klik dua kali untuk edit tugas");
+//                    setTooltip(tooltip);
+//                    setStyle("-fx-font-size: 12px;");
+                    setPadding(new Insets(10)); // padding antar cell
                     setText(t.getJudul() + " (" + t.getStatus() + ")");
                     if ("Ongoing".equals(t.getStatus())) {
                         setTextFill(Color.BLUE);
@@ -88,8 +94,8 @@ public class TodoListController implements Initializable {
                     } else {
                         setTextFill(Color.BLACK);
                     }
-                    }
                 }
+            }
         });
     }
 
