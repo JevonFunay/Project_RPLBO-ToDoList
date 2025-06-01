@@ -53,7 +53,7 @@
     -fx-background-color: #ccc;
     -fx-text-fill: #333;
     -fx-font-size: 14px;
-    -fx-padding: 3;
+    -fx-padding: 5px 15px;
     -fx-pref-width: 115;
     -fx-alignment: CENTER_LEFT;
 }

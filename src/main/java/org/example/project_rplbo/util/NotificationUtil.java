@@ -9,7 +9,7 @@ public class NotificationUtil {
 
     public static void checkForDueTasks() {
         try (Connection conn = DBConnectionUser.getConnection()) {
-            String sql = "SELECT judul, tenggat FROM tasktable WHERE user = ? AND DATE(tenggat) = DATE('now', '+1 day') AND status != 'Selesai' AND status != 'Cancel';";
+            String sql = "SELECT judul, tenggat FROM tasktable WHERE user = ? AND DATE(tenggat) = DATE('now', '+1 day') AND status != 'Selesai' AND status != 'Cancel' AND status != 'Dihapus';";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, SessionManager.getInstance().getUsername());
