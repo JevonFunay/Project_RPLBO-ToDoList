@@ -127,32 +127,32 @@
 }
 
 /* ======== ListView & ListCell ======== */
-.list-view {
-    -fx-background-color: transparent;      /* biar container-tab terlihat */
-    -fx-border-color: #c0c0c0;               /* sama dengan color-border-light */
-    -fx-border-width: 1px;
-    -fx-background-radius: 4px;
-    -fx-border-radius: 4px;
-}
+/*.list-view {*/
+/*    -fx-background-color: transparent;      !* biar container-tab terlihat *!*/
+/*    -fx-border-color: #c0c0c0;               !* sama dengan color-border-light *!*/
+/*    -fx-border-width: 1px;*/
+/*    -fx-background-radius: 4px;*/
+/*    -fx-border-radius: 4px;*/
+/*}*/
 
 /* 1) Gaya untuk setiap ListCell (non-selected) */
-.list-view .list-cell {
-    -fx-background-color: transparent;
-    -fx-text-fill: -fx-text-base-color;     /* gunakan warna yang di-set lewat Controller */
-    -fx-padding: 8px 12px;
-}
+/*.list-view .list-cell {*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-text-fill: -fx-text-base-color;     !* gunakan warna yang di-set lewat Controller *!*/
+/*    -fx-padding: 8px 12px;*/
+/*}*/
 
 /* 2) Gaya saat sel terpilih (selected) */
-.list-view .list-cell:selected {
-    -fx-background-color: #a0c4ff;           /* biru muda */
-    -fx-text-fill: #000000;                  /* hitam untuk kontras */
-}
+/*.list-view .list-cell:selected {*/
+/*    -fx-background-color: #a0c4ff;           !* biru muda *!*/
+/*    -fx-text-fill: #000000;                  !* hitam untuk kontras *!*/
+/*}*/
 
 /* 3) Gaya hover pada ListCell */
-.list-view .list-cell:hover {
-    -fx-background-color: #d0d0d0;           /* abu-abu sedikit lebih gelap */
+/*.list-view .list-cell:hover {*/
+/*    -fx-background-color: #d0d0d0;           !* abu-abu sedikit lebih gelap *!*/
     /* jangan override -fx-text-fill di sini */
-}
+/*}*/
 
 /* ======== Ikon (ImageView) ======== */
 .image-view {
